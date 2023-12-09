@@ -1,0 +1,52 @@
+<p-toast></p-toast>
+<div class="grid">
+
+    <div  class="col-12">
+        <div class="card" *ngIf="!loadingMenu">
+            <div class="grid">
+                <div class="col-12">
+                    <h4>{{rolName}}</h4>
+                    <p>Arrastra los menus que deseas asignar al rol.</p>
+                </div>
+            </div>
+            <div  class="grid">
+                <div class="col-12">
+                    <p-pickList [source]="sourceMenus"
+                                [target]="targetMenus"
+                                sourceHeader="Menus disponibles"
+                                targetHeader="Menus asignados"
+                                [dragdrop]="true"
+                                [responsive]="true"
+                                [sourceStyle]="{ height: '30rem' }"
+                                [targetStyle]="{ height: '30rem' }"
+                                [showSourceControls]="false"
+                                [showTargetControls]="false"
+                                [stripedRows]="true"
+                                [metaKeySelection]="false"
+                                (onMoveToTarget)="addMenuToRol($event)"
+                                (onMoveToSource)="removeMenuToRol($event)"
+                                breakpoint="700px">
+                        <ng-template let-menu pTemplate="item">
+                            <div class="flex flex-wrap p-2 align-items-center gap-3">
+                                <i class="pi {{menu.icon}}" style="font-size: 2rem;"></i>
+                                <div class="flex-1 flex flex-column gap-2">
+                                    <span class="font-bold">{{ menu.name }}</span>
+                                    <div class="flex align-items-center gap-2">
+                                        <span>{{ menu.code }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-pickList>
+                </div>
+            </div>
+
+        </div>
+        <div class="card" *ngIf="loadingMenu">
+            <br>
+            <br>
+            <app-skeleton-picklist [soruceLabel]="'Menus disponibles'" [targetLabel]="'Menus asignados'"></app-skeleton-picklist>
+        </div>
+    </div>
+</div>
+

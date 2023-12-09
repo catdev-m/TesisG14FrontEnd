@@ -1,0 +1,20 @@
+
+:host ::ng-deep .pi-eye,
+:host ::ng-deep .pi-eye-slash {
+    transform:scale(1.6);
+    margin-right: 1rem;
+    color: #6E0000 !important;
+}
+button{
+    background-color: #8E0000;
+    border: none;
+    &:hover{
+        background-color: #4E0000 !important;
+    }
+}
+
+input{
+    &:hover{
+        border: #4E0000 solid 1px !important;
+    }
+}

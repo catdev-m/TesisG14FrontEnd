@@ -1,0 +1,54 @@
+
+<form [formGroup]="rolForm" class="formgrid grid" style="margin-top: 5px;">
+    <div class="field col-8">
+        <label htmlFor="name">Nombre</label>
+        <input  pInputText
+                    id="name"
+                    class="p-inputtext-sm w-full"
+                    formControlName="name" />
+    </div>
+    <div class="field col-4">
+        <label htmlFor="EstadO">Activo</label> 
+        <br style="margin-bottom:5px;" >
+        <p-inputSwitch id="active" formControlName="active" ></p-inputSwitch>
+    </div>
+    <div class="col-12">
+        <label for="description">Descripción</label>
+        <textarea   pInputTextarea
+                    id="description"
+                    rows="3"
+                    class="p-inputtext-sm w-full"
+                    formControlName="description"
+                    [autoResize]="true"></textarea>
+    </div>
+
+    <div class="col-12"> 
+        <p-divider></p-divider> 
+    </div>
+    
+    <div class="col-12">
+        <div class="flex justify-content-end">
+            <p-button   label="Cancelar"
+                        (click)="closeModal()"
+                        styleClass="p-button-sm p-button-secondary" 
+                        icon="pi pi-times">
+            </p-button>
+            &nbsp;
+            &nbsp;
+            <p-button   label="Guardar"
+                        [disabled]="rolForm.invalid || loading"
+                        *ngIf="actionType == 'create'"
+                        (onClick)="createRol()"
+                        styleClass="p-button-sm p-button-primary"
+                        icon="pi pi-save">
+            </p-button>
+            <p-button   label="Actualizar"
+                        *ngIf="actionType == 'update'"
+                        [disabled]="rolForm.invalid || loading"
+                        (onClick)="updateRol()"
+                        styleClass="p-button-sm p-button-primary"
+                        icon="pi pi-save">
+            </p-button>
+        </div>
+    </div>
+</form>

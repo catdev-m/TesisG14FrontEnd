@@ -1,0 +1,116 @@
+<p-toast></p-toast>
+<div class="grid">
+    <div class="col-12">
+        <div class="card" *ngIf="!isloading">
+            <p-table #rolesDt
+                        [value]="rolesList"
+                        dataKey="id"
+                        [rows]="12"
+                        [paginator]="true"
+                        styleClass="p-datatable-gridlines p-datatable-sm"
+                        [globalFilterFields]="['name','id']"
+                        [tableStyle]="{ 'min-width': '75rem' }">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-wrap">
+                        <div class="flex">
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input  pInputText
+                                        type="text"
+                                        class="p-inputtext-sm"
+                                        (input)="rolesDt.filterGlobal($event.target.value, 'contains')"
+                                        placeholder="rol" />
+                            </span>
+                        </div>
+                        <div class="flex">
+                            <p-button   label="Agregar"
+                                        icon="pi pi-plus"
+                                        (click)="createRol()"
+                                        styleClass="p-button-sm  p-button-success"></p-button>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th >Nombre</th>
+                        <th>Descripción</th>
+                        <th style="width: 125px;">Estado</th>
+                        <th>Creado</th>
+                        <th>Actualizado</th>
+                        <th style="width: 200px;">Acciones</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{item.description}}</td>
+                        <td class="text-center">
+                            <p-chip *ngIf="item.active"
+                                    label="Activo"
+                                    styleClass="chip-ml chip-ml-sucess"
+                                    icon="pi pi-check">
+                            </p-chip>
+                            <p-chip *ngIf="!item.active"
+                                    label="Inactivo"
+                                    styleClass="chip-ml chip-ml-danger"
+                                    icon="pi pi-times">
+                            </p-chip>
+                        </td>
+                        <td> {{item.dateCreated|date:'d/m/Y'}}</td>
+                        <td> {{item.dateUpdated|date:'d/m/Y'}}</td>
+                        <td class="text-center">
+                            <p-button   styleClass="p-button-sm"
+                                        pTooltip="Editar rol"
+                                        (onClick)="updateRol(item)"
+                                        [tooltipOptions]="toltipOptions"
+                                        icon="pi pi-pencil">
+                            </p-button>
+                            &nbsp;
+                            <p-button   icon="pi pi-list"
+                                        styleClass="p-button-help p-button-sm"
+                                        (onClick)="goToMenu(item)"
+                                        pTooltip="Menus asignados"
+                                        [tooltipOptions]="toltipOptions"
+                                        >
+                            </p-button>
+                            &nbsp;
+                            <p-button   icon="pi pi-wrench"
+                                        styleClass="p-button-help p-button-sm"
+                                        (onClick)="goToPermissions(item)"
+                                        pTooltip="Permisos del rol"
+                                        [tooltipOptions]="toltipOptions"
+                                        >
+                            </p-button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr *ngFor="let i of [0,1,2,3,4,5,6,7,8,9,10,11,12]">
+                        <td>
+                            <p-skeleton height="15px" styleClass="mb-2"></p-skeleton>
+                        </td>
+                        <td>
+                            <p-skeleton height="15px" styleClass="mb-2"></p-skeleton>
+                        </td>
+                        <td>
+                            <p-skeleton height="15px" styleClass="mb-2"></p-skeleton>
+                        </td>
+                        <td>
+                            <p-skeleton height="15px" styleClass="mb-2"></p-skeleton>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="4" style="text-align: center;">
+                            <strong>No se han encontrado Roles.</strong>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="card" *ngIf="isloading">
+            <app-skeleton-table [columnCount]="6"></app-skeleton-table>
+        </div>
+    </div>
+</div>

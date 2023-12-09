@@ -1,0 +1,54 @@
+
+<form [formGroup]="userForm" class="formgrid grid" style="margin-top: 5px;">
+    <div class="field col-6">
+        <label htmlFor="usuario">Usuario</label>
+        <span class="p-input-icon-left w-full">
+            <i class="pi pi-user"></i>
+            <input  pInputText
+                    id="usuario"
+                    class="p-inputtext-sm w-full"
+                    formControlName="usuario" />
+        </span>
+    </div>
+    <div class="field col-6">
+        <label htmlFor="password">Contraseña</label>
+        <span class="p-input-icon-left w-full">
+            <p-password id="password"                     
+                        formControlName="password"
+                        [style]="{'width':'100%'}"
+                        class="p-inputtext-sm"
+                        inputStyleClass="w-full"
+                        [feedback]="false" 
+                        [toggleMask]="true"></p-password>
+        </span>
+    </div>
+    <div class="field col-12">
+        <label htmlFor="usuario">Email</label>
+        <span class="p-input-icon-left w-full">
+            <i class="pi pi-envelope"></i>
+            <input  pInputText
+                    id="email"
+                    class="p-inputtext-sm w-full"
+                    formControlName="email" />
+        </span>
+    </div>
+    <div class="col-12"> <p-divider></p-divider></div>
+    <div class="col-12 ">
+        <div class="flex justify-content-end">
+            <p-button   label="Cancelar"
+                        (click)="cancel()"
+                        styleClass="p-button-sm p-button-secondary" 
+                        icon="pi pi-times">
+            </p-button>
+            &nbsp;
+            &nbsp;
+            <p-button   label="Guardar"
+                        [disabled]="!userForm.valid"
+                        (click)="createUser()"
+                        styleClass="p-button-sm p-button-primary"
+                        icon="pi pi-save">
+            </p-button>
+        </div>
+
+    </div>
+</form>

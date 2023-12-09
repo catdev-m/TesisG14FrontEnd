@@ -1,0 +1,57 @@
+<p-toast></p-toast>
+<div class="grid">
+
+    <div  class="col-12">
+        <div class="card">
+            <div class="grid">
+                <div class="col-12">
+                    <h4>{{rolName}}</h4>
+                    <p>Arrastra los permisos que deseas asignar al rol.</p>
+                </div>
+            </div>
+            <div *ngIf="!loadingPermissions" class="grid">
+                <div class="col-12">
+                    <p-pickList [source]="source"
+                                [target]="target"
+                                sourceHeader="Permisos disponibles"
+                                targetHeader="Permisos asignados"
+                                [dragdrop]="true"
+                                filterBy="menu"
+                                sourceFilterPlaceholder="Buscar por menu"
+                                targetFilterPlaceholder="Buscar por menu"
+                                [responsive]="true"
+                                [sourceStyle]="{ height: '30rem' }"
+                                [targetStyle]="{ height: '30rem' }"
+                                [showSourceControls]="false"
+                                [showTargetControls]="false"
+                                [stripedRows]="true"
+                                [metaKeySelection]="false"
+                                (onMoveToTarget)="addPermissionToRol($event)"
+                                (onMoveToSource)="removePermissionFromRol($event)"
+                                breakpoint="700px">
+                        <ng-template let-item pTemplate="item">
+                            <div class="flex flex-wrap p-2 align-items-center gap-3">
+                                <i class="pi pi-th-large" style="font-size: 2rem;"></i>
+                                <div class="flex-1 flex flex-column gap-2">
+                                    <span class="font-bold">{{ item.name }}</span>
+                                    <div class="flex align-items-center gap-2">
+                                        <span>{{ item.menu }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-pickList>
+                </div>
+            </div>
+            <div class="grid" *ngIf="loadingPermissions" >
+                <div class="col-5">
+                    <p-skeleton styleClass="mb-2" height="20rem"></p-skeleton>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-5">
+                    <p-skeleton styleClass="mb-2" height="20rem"></p-skeleton>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

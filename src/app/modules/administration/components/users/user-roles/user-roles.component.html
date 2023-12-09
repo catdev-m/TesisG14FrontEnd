@@ -1,0 +1,55 @@
+<p-toast></p-toast>
+<div class="grid">
+
+    <div  class="col-12">
+        <div class="card">
+            <div *ngIf="!loading" class="grid">
+                <div class="col-12">
+                    <p-pickList [source]="source"
+                                [target]="target"
+                                sourceHeader="Permisos disponibles"
+                                targetHeader="Permisos asignados"
+                                [dragdrop]="true"
+                                filterBy="name"
+                                sourceFilterPlaceholder="Nombre"
+                                targetFilterPlaceholder="Nombre"
+                                [responsive]="true"
+                                [sourceStyle]="{ height: '30rem' }"
+                                [targetStyle]="{ height: '30rem' }"
+                                [showSourceControls]="false"
+                                [showTargetControls]="false"
+                                [stripedRows]="true"
+                                [metaKeySelection]="false"
+                                (onMoveToTarget)="addRol($event)"
+                                (onMoveToSource)="removeRol($event)"
+                                breakpoint="700px">
+                        <ng-template let-item pTemplate="item">
+                            <div class="flex flex-wrap p-2 align-items-center gap-3">
+                                <i class="pi pi-th-large" style="font-size: 2rem;"></i>
+                                <div class="flex-1 flex flex-column gap-2">
+                                    <span class="font-bold">{{ item.name }}</span>
+                                    <div class="flex align-items-center gap-2">
+                                        <p  >
+                                            {{ item.description }}
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-pickList>
+                </div>
+            </div>
+            <div class="grid" *ngIf="loading" >
+                <div class="col-12">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <app-skeleton-picklist [soruceLabel]="'Roles disponibles'" [targetLabel]="'Roles asignados'"></app-skeleton-picklist>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

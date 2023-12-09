@@ -1,0 +1,53 @@
+<form [formGroup]="facultyForm" class="formgrid grid" style="margin-top: 5px;">
+    <div class="field col-8">
+        <label htmlFor="name">Nombre de facultad</label>
+        <input  pInputText
+                    id="name"
+                    class="p-inputtext-sm w-full"
+                    formControlName="name" />
+    </div>
+    <div class="field col-4">
+        <label htmlFor="Estado">Activa</label>
+        <br style="margin-bottom:5px;" >
+        <p-inputSwitch id="active" formControlName="active" ></p-inputSwitch>
+    </div>
+    <div class="col-12">
+        <label for="description">Descripción</label>
+        <textarea   pInputTextarea
+                    id="description"
+                    rows="3"
+                    class="p-inputtext-sm w-full"
+                    formControlName="description"
+                    [autoResize]="true"></textarea>
+    </div>
+
+    <div class="col-12">
+        <p-divider></p-divider>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-end">
+            <p-button   label="Cancelar"
+                        (click)="close()"
+                        styleClass="p-button-sm p-button-secondary"
+                        icon="pi pi-times">
+            </p-button>
+            &nbsp;
+            &nbsp;
+            <p-button   label="Guardar"
+                        [disabled]="facultyForm.invalid || loading"
+                        *ngIf="actionType === 'create'"
+                        (onClick)="create()"
+                        styleClass="p-button-sm p-button-primary"
+                        icon="pi pi-save">
+            </p-button>
+            <p-button   label="Actualizar"
+                        *ngIf="actionType === 'update'"
+                        [disabled]="facultyForm.invalid || loading"
+                        (onClick)="update()"
+                        styleClass="p-button-sm p-button-primary"
+                        icon="pi pi-save">
+            </p-button>
+        </div>
+    </div>
+</form>

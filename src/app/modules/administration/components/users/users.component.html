@@ -1,0 +1,86 @@
+<p-toast></p-toast>
+<div class="grid">
+    <div class="col-12">
+        <div class="card" *ngIf="!isLoadingUsers">
+            <p-table    #usersDt
+                        [value]="usersList"
+                        dataKey="id"
+                        [paginator]="true"
+                        [rows]="10"
+                        [lazy]="true"
+                        styleClass="p-datatable-gridlines p-datatable-sm"
+                        [globalFilterFields]="['name', 'email']"
+                        [tableStyle]="{ 'min-width': '75rem' }">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-wrap">
+                        <div class="flex">
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input  pInputText type="text"
+                                        class="p-inputtext-sm"
+                                        (input)="usersDt.filterGlobal($event.target.value, 'contains')"
+                                        placeholder="Usuario/Correo" />
+                            </span>
+                        </div>
+                        <div class="flex">
+                            <p-button   label="Usuario"
+                                        (click)="createUser()"
+                                        icon="pi pi-user-plus"
+                                        styleClass="p-button-sm  p-button-success"></p-button>
+                        </div>
+                    </div>
+
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+
+                        <th>Usuario</th>
+                        <th>Correo</th>
+                        <th>Fecha de creacion</th>
+                        <th>Fecha de actualizacion</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-user>
+                    <tr>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.createdAt |date:'dd/MM/YY' }}</td>
+                        <td>{{ user.updatedAt |date:'dd/MM/YY' }}</td>
+                        <td class="text-center">
+                            <p-chip *ngIf="user.state.name === 'created'"
+                                    label="Creado"
+                                    [style]="{'background-color':'darkviolet','color':'#FFF','font-weight':'500'}"
+                                    icon="pi pi-exclamation-circle">
+                            </p-chip>
+                        </td>
+                        <td class="text-center">
+                            <p-button title="Editar usuario" styleClass="p-button-sm" icon="pi pi-user-edit">
+                            </p-button>&nbsp;&nbsp;
+                            <p-button title="Asignar roles" styleClass="p-button-sm p-button-warning" icon="pi pi-cog"></p-button>
+                            <a [routerLink]="['/admin/users/',user.userId,'roles']">
+                                <i class="pi pi-cog"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="card" *ngIf="isLoadingUsers">
+            <app-skeleton-table [columnCount]="6"></app-skeleton-table>
+        </div>
+    </div>
+</div>
+
+<!--
+<div class="flex justify-content-center align-content-center flex-wrap">
+    <div class="flex align-items-center justify-content-center">
+        <p-progressSpinner styleClass="w-4rem h-4rem"
+        strokeWidth="8"
+        fill="var(--surface-ground)"
+        animationDuration=".5s">
+        </p-progressSpinner>
+    </div>
+</div>
+-->

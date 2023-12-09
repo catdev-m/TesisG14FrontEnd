@@ -1,0 +1,29 @@
+<div class="layout-wrapper" *ngIf="!loadingInterface" [ngClass]="containerClass">
+    <app-topbar></app-topbar>
+    <div class="layout-sidebar">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="layout-main-container">
+        <div class="grid">
+            <div class="col-12">
+                <p-breadcrumb [model]="breadcrumbItems" [home]="{icon: 'pi pi-home'}"></p-breadcrumb>
+            </div>
+        </div>
+        <div class="layout-main">
+            <router-outlet></router-outlet>
+        </div>
+        <app-footer></app-footer>
+    </div>
+    <app-config></app-config>
+    <div class="layout-mask"></div>
+</div>
+<div class="layout-wrapper" *ngIf="loadingInterface">
+    <div class="loading-content align-items-center" style="min-height: 100vh;;display: flex; justify-content: center;">
+        <p-progressSpinner
+        styleClass="w-6rem h-6rem"
+        strokeWidth="6"
+        fill="var(--surface-ground)"
+        animationDuration="1s"></p-progressSpinner>
+    </div>
+
+</div>
