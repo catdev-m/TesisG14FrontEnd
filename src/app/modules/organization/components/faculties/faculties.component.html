@@ -54,12 +54,12 @@
                             <p-chip *ngIf="item.active === true"
                                     label="Activo"
                                     styleClass="chip-ml chip-ml-sucess"
-                                    icon="pi pi-exclamation-circle">
+                                    icon="pi pi-check">
                             </p-chip>
                             <p-chip *ngIf="item.active === false"
                                     label="Inactivo"
-                                    [style]="{'color':'#FFF','font-weight':'500'}"
-                                    icon="pi pi-exclamation-circle">
+                                    styleClass="chip-ml chip-ml-danger"
+                                    icon="pi pi-times">
                             </p-chip>
                         </td>
                         <td class="text-center">

@@ -1,3 +1,4 @@
+import { Faculty } from "../organization/faculty";
 import { UserState } from "./user-state";
 
 export interface User {
@@ -7,5 +8,6 @@ export interface User {
     password?:string,
     createdAt?:Date,
     updatedAt?:Date,
-    state?:UserState
+    state?:UserState,
+    faculty?:Faculty
 }

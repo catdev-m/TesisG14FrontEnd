@@ -17,6 +17,6 @@ export class SkeletonTableComponent {
         for (let index = 0; index < this.columnCount; index++) {
             this.skArray[index]='a';
         }
-        console.log(this.skArray);
+
     }
 }
