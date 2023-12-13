@@ -1,68 +1,74 @@
+
 import { Component } from '@angular/core';
 import { Guid } from 'typescript-guid';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogConfig,DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Faculty } from 'src/app/interfaces/organization/faculty';
-import { FacultiesService } from 'src/app/services/organization/faculties/faculties.service';
+import { Department } from 'src/app/interfaces/organization/department';
 import { MessageService } from 'primeng/api';
+import { DepartmentService } from 'src/app/services/organization/department/department.service';
 
 @Component({
-  selector: 'app-faculty',
-  templateUrl: './faculty.component.html',
-  styleUrls: ['./faculty.component.scss'],
-  providers:[MessageService]
+  selector: 'app-department',
+  templateUrl: './department.component.html',
+  styleUrls: ['./department.component.scss']
 })
-export class FacultyComponent
-{
+
+export class DepartmentComponent {
     loading:boolean;
     actionType:string;
-    facultyForm: FormGroup;
-    selectedFaculty:Faculty;
+    depForm: FormGroup;
+    faculty:Faculty;
+    selectedDep:Department;
+
+    facultiesOptions:Faculty[];
 
     constructor(private fb : FormBuilder,
-                private facultyService:FacultiesService,
-                public config:DynamicDialogConfig,
-                private messageService: MessageService,
-                public ref:DynamicDialogRef,
-        )
+        private depService:DepartmentService,
+        public config:DynamicDialogConfig,
+        private messageService: MessageService,
+        public ref:DynamicDialogRef,)
     {}
 
     ngOnInit(){
         this.actionType=this.config.data.actionType;
+        this.faculty = this.config.data.faculty;
+
 		switch(this.actionType){
 			case 'create':
 				this.buildForm();
 			break;
 			case 'update':
-				this.selectedFaculty = this.config.data.faculty;
+                this.selectedDep= this.config.data.department;
 				this.buildUpdateForm();
 			break;
 		}
-
+        this.facultiesOptions=[this.faculty];
     }
 
+
     buildForm(){
-		this.facultyForm = this.fb.group({
-			facultyId:[Guid.create().toString(),[Validators.required]],
+		this.depForm = this.fb.group({
+			departmentId:[Guid.create().toString(),[Validators.required]],
+            facultyId:[this.faculty.facultyId.toString(),[Validators.required]],
 			name:['',[Validators.required]],
-			description:['',[Validators.required]],
             active:[true,[Validators.required]],
 		});
 	}
 
     buildUpdateForm(){
-        this.facultyForm = this.fb.group({
-            facultyId:[this.selectedFaculty.facultyId.toString(),[Validators.required]],
-			name:[this.selectedFaculty.name,[Validators.required]],
-			description:[this.selectedFaculty.description,[Validators.required]],
-            active:[this.selectedFaculty.active,[Validators.required]],
+        this.depForm = this.fb.group({
+            departmentId:[this.selectedDep.departmentId.toString(),[Validators.required]],
+            facultyId:[this.selectedDep.facultyId.toString(),[Validators.required]],
+			name:[this.selectedDep.name,[Validators.required]],
+            active:[this.selectedDep.active,[Validators.required]],
         });
     }
 
     create(){
         this.loading=true;
-        let faculty:Faculty = this.facultyForm.value;
-		this.facultyService.create(faculty).subscribe((res)=>{
+        let dep:Department = this.depForm.value;
+		this.depService.create(dep).subscribe((res)=>{
 			if(res.success){
 				this.loading=false;
 				this.ref.close({data:res.data,success:true});
@@ -80,8 +86,8 @@ export class FacultyComponent
 
     update(){
         this.loading=true;
-		var data = this.facultyForm.value;
-		this.facultyService.update(data).subscribe((res)=>{
+		var data = this.depForm.value;
+		this.depService.update(data).subscribe((res)=>{
 			if(res.success){
 				this.loading=false;
 				this.ref.close({data:res.data,success:true});

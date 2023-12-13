@@ -1,0 +1,53 @@
+<form [formGroup]="depForm" class="formgrid grid" style="margin-top: 5px;">
+    <div class="field col-8">
+        <label htmlFor="name">Nombre del departamento</label>
+        <input  pInputText
+                    id="name"
+                    class="p-inputtext-sm w-full"
+                    formControlName="name" />
+    </div>
+    <div class="field col-4">
+        <label htmlFor="Estado">Activo</label>
+        <br style="margin-bottom:5px;" >
+        <p-inputSwitch id="active" formControlName="active" ></p-inputSwitch>
+    </div>
+
+    <div class="col-12 field">
+        <label htmlFor="Fac">Facultad </label>
+        <p-dropdown [options]="facultiesOptions"
+                    styleClass="p-inputtext-sm w-full"
+                    [disabled]="true"
+                    optionLabel="name"></p-dropdown>
+    </div>
+
+
+    <div class="col-12">
+        <p-divider></p-divider>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-end">
+            <p-button   label="Cancelar"
+                        (click)="close()"
+                        styleClass="p-button-sm p-button-secondary"
+                        icon="pi pi-times">
+            </p-button>
+            &nbsp;
+            &nbsp;
+            <p-button   label="Guardar"
+                        [disabled]="depForm.invalid || loading"
+                        *ngIf="actionType === 'create'"
+                        (onClick)="create()"
+                        styleClass="p-button-sm p-button-primary"
+                        icon="pi pi-save">
+            </p-button>
+            <p-button   label="Actualizar"
+                        *ngIf="actionType === 'update'"
+                        [disabled]="depForm.invalid || loading"
+                        (onClick)="update()"
+                        styleClass="p-button-sm p-button-primary"
+                        icon="pi pi-save">
+            </p-button>
+        </div>
+    </div>
+</form>

@@ -11,6 +11,7 @@ import { DividerModule } from 'primeng/divider';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { OrganizationRoutingModule } from './organization-routing.module';
 import { FacultiesComponent } from './components/faculties/faculties.component';
@@ -19,13 +20,15 @@ import { SchoolsComponent } from './components/schools/schools.component';
 import { FacultyComponent } from './components/faculties/faculty/faculty.component';
 import { SharedModule } from '../shared/shared.module';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DepartmentComponent } from './components/departments/department/department.component';
 
 @NgModule({
   declarations: [
     FacultiesComponent,
     DepartmentsComponent,
     SchoolsComponent,
-    FacultyComponent
+    FacultyComponent,
+    DepartmentComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +45,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     SharedModule,
     InputSwitchModule,
     InputTextareaModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DropdownModule
 
   ]
 })
